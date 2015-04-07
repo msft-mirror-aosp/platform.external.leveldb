@@ -3,6 +3,9 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := leveldb
+LOCAL_MODULE_TAGS := optional
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := gnustl_static
 LOCAL_CFLAGS := -D_REENTRANT -DOS_ANDROID -DLEVELDB_PLATFORM_POSIX -DNDEBUG -DSNAPPY
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/leveldb-1.18 $(LOCAL_PATH)/leveldb-1.18/include $(LOCAL_PATH)/snappy-1.1.0
@@ -14,6 +17,9 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := snappy
+LOCAL_MODULE_TAGS := optional
+LOCAL_SDK_VERSION := 9
+LOCAL_NDK_STL_VARIANT := gnustl_static
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_SRC_FILES := snappy-1.1.0/snappy.cc snappy-1.1.0/snappy-sinksource.cc
 
