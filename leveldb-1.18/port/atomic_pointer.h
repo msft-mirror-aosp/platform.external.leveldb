@@ -35,6 +35,8 @@
 #define ARCH_CPU_X86_FAMILY 1
 #elif defined(__ARMEL__)
 #define ARCH_CPU_ARM_FAMILY 1
+#elif defined(__aarch64__)
+#define ARCH_CPU_ARM64_FAMILY 1
 #elif defined(__ppc__) || defined(__powerpc__) || defined(__powerpc64__)
 #define ARCH_CPU_PPC_FAMILY 1
 #elif defined(__mips__)
@@ -94,12 +96,10 @@ inline void MemoryBarrier() {
 }
 #define LEVELDB_HAVE_MEMORY_BARRIER
 
-// PPC
-#elif defined(ARCH_CPU_PPC_FAMILY) && defined(__GNUC__)
+// ARM64
+#elif defined(ARCH_CPU_ARM64_FAMILY)
 inline void MemoryBarrier() {
-  // TODO for some powerpc expert: is there a cheaper suitable variant?
-  // Perhaps by having separate barriers for acquire and release ops.
-  asm volatile("sync" : : : "memory");
+  asm volatile("dmb sy" : : : "memory");
 }
 #define LEVELDB_HAVE_MEMORY_BARRIER
 
@@ -107,6 +107,15 @@ inline void MemoryBarrier() {
 #elif defined(ARCH_CPU_MIPS_FAMILY) && defined(__GNUC__)
 inline void MemoryBarrier() {
   __asm__ __volatile__("sync" : : : "memory");
+}
+#define LEVELDB_HAVE_MEMORY_BARRIER
+
+// PPC
+#elif defined(ARCH_CPU_PPC_FAMILY) && defined(__GNUC__)
+inline void MemoryBarrier() {
+  // TODO for some powerpc expert: is there a cheaper suitable variant?
+  // Perhaps by having separate barriers for acquire and release ops.
+  asm volatile("sync" : : : "memory");
 }
 #define LEVELDB_HAVE_MEMORY_BARRIER
 
@@ -224,7 +233,9 @@ class AtomicPointer {
 #undef LEVELDB_HAVE_MEMORY_BARRIER
 #undef ARCH_CPU_X86_FAMILY
 #undef ARCH_CPU_ARM_FAMILY
+#undef ARCH_CPU_ARM64_FAMILY
 #undef ARCH_CPU_PPC_FAMILY
+#undef ARCH_CPU_MIPS_FAMILY
 
 }  // namespace port
 }  // namespace leveldb
