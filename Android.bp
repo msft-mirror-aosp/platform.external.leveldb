@@ -85,6 +85,7 @@ cc_test {
     defaults: [
         "leveldb_default_flags",
     ],
+    test_suites: ["general-tests"],
     srcs: [
         "db/corruption_test.cc",
         "db/dbformat_test.cc",
