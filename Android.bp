@@ -28,7 +28,6 @@ cc_defaults {
         "-Wno-unused-parameter",
         "-Wno-unused-variable",
     ],
-    clang: true,
     sdk_version: "current",
 }
 
