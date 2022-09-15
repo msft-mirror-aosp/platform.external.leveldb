@@ -28,8 +28,8 @@ cc_defaults {
         "-Wno-unused-parameter",
         "-Wno-unused-variable",
     ],
-    clang: true,
     sdk_version: "current",
+    min_sdk_version: "30",
 }
 
 cc_library {
@@ -39,6 +39,9 @@ cc_library {
     ],
     export_include_dirs: ["include/"],
     visibility: ["//packages/providers/MediaProvider/jni"],
+    apex_available: [
+        "com.android.mediaprovider",
+    ],
     srcs: [
         "db/builder.cc",
         "db/c.cc",
