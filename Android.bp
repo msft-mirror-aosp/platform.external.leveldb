@@ -13,6 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+package {
+    default_applicable_licenses: ["external_leveldb_license"],
+}
+
+// Added automatically by a large-scale-change
+// See: http://go/android-license-faq
+license {
+    name: "external_leveldb_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-BSD",
+    ],
+    license_text: [
+        "LICENSE",
+    ],
+}
+
 cc_defaults {
     name: "leveldb_default_flags",
     local_include_dirs: ["db/", "table/", "include/", "port/"],
@@ -89,6 +106,7 @@ cc_test {
     defaults: [
         "leveldb_default_flags",
     ],
+    test_suites: ["general-tests"],
     srcs: [
         "db/corruption_test.cc",
         "db/dbformat_test.cc",
@@ -119,4 +137,3 @@ cc_test {
     ],
     stl: "c++_static",
 }
-
